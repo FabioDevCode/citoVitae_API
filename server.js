@@ -1,8 +1,7 @@
 const http = require('http');
 const app = require('./app');
 const cors = require('cors');
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
 
 const PORT_NUMBER = process.env?.PORT ? process.env.PORT : 1338;

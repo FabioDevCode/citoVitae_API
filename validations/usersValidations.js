@@ -1,3 +1,6 @@
+const EmailValidator = require('email-validator');
+
+
 const signup = (req, res, next) => {
     const keyArray = [
         'pseudo',
@@ -22,6 +25,13 @@ const signup = (req, res, next) => {
                 msg: `La donnée suivante est manquantes : ${key}`
             });
         }
+    }
+
+    if(!EmailValidator.validate(req.body.email)) {
+        return res.status(400).json({
+            error: 'VALIDATIONS',
+            msg: "Le format de l'email n'est pas correct."
+        });
     }
 
     if(req.body.password != req.body.password_bis) {

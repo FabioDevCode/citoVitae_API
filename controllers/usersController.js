@@ -1,8 +1,8 @@
-const usersModel = require('../models/usersModel');
 const bcrypt = require('bcrypt/bcrypt');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-dotenv.config();
+const usersModel = require('../models/usersModel');
+const profilModel = require('../models/profilModel');
+require('dotenv').config();
 
 
 const signup = async(req, res, next) => {
@@ -22,9 +22,19 @@ const signup = async(req, res, next) => {
             throw new Error('error');
         }
 
+        const profil = new profilModel({
+            uid: save_user._id
+        })
+
+        const save_profil = await profil.save();
+
+        if(!save_profil) {
+            throw new Error('error');
+        }
+
         res.status(201).json({msg: 'Nouvel utilisateur créé !'});
     } catch (err) {
-        console.error(err);
+        console.error('usersController : ' + err);
         res.status(500).json({err});
     }
 };
@@ -65,14 +75,10 @@ const login = async(req, res, next) => {
             )
         });
     } catch (err) {
-        console.error(err);
+        console.error('usersController : ' + err);
         res.status(500).json({err});
     }
 };
-
-
-
-
 
 
 
