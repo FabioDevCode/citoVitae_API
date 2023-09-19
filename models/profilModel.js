@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const ProfilSchema = mongoose.Schema({
+    uid: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    titre: {
+        type: String
+    },
     nom: {
         type: String
     },
