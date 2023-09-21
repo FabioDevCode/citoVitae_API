@@ -10,18 +10,12 @@ const update = (req, res, next) => {
         'titre'
     ];
 
-    for(const [key, value] of Object.entries(req.body)) {
-        if(!keyArray.includes(key)) {
-            return res.status(400).json({
-                error: 'VALIDATIONS',
-                msg: 'Les données envoyées ne sont pas correctes.'
-            });
-        }
-
-        if(!value.trim().length) {
-            delete req.body[key];
-        }
-    };
+    if(!validations_helpers.checKeyOnBody(keyArray, req.body)) {
+        return res.status(400).json({
+            error: 'VALIDATIONS',
+            msg: 'Les données envoyées ne sont pas correctes.'
+        });
+    }
 
     next();
 };

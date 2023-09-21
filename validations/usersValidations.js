@@ -1,4 +1,5 @@
 const EmailValidator = require('email-validator');
+const validations_helpers = require('../helpers/validationsHelpers');
 
 
 const signup = (req, res, next) => {
@@ -9,22 +10,20 @@ const signup = (req, res, next) => {
         'password_bis'
     ];
 
-    for(const [key, value] of Object.entries(req.body)) {
-        if(!keyArray.includes(key)) {
-            return res.status(400).json({
-                error: 'VALIDATIONS',
-                msg: 'Les données envoyées ne sont pas correctes.'
-            });
-        }
-    };
+    if(!validations_helpers.checKeyOnBody(keyArray, req.body)) {
+        return res.status(400).json({
+            error: 'VALIDATIONS',
+            msg: 'Les données envoyées ne sont pas correctes.'
+        });
+    }
 
-    for(const key of keyArray) {
-        if(!req.body.hasOwnProperty(key)) {
-            return res.status(400).json({
-                error: 'VALIDATIONS',
-                msg: `La donnée suivante est manquantes : ${key}`
-            });
-        }
+    const key = validations_helpers.checRequiredKeyOnBody(keyArray, req.body);
+
+    if(key != true) {
+        return res.status(400).json({
+            error: 'VALIDATIONS',
+            msg: `La donnée suivante est manquantes : ${key}`
+        });
     }
 
     if(!EmailValidator.validate(req.body.email)) {
