@@ -22,7 +22,10 @@ module.exports = async(req, res, next) => {
         }
 
         const checkUser = await usersModel.findOne(
-            { _id: user_id },
+            {
+                _id: user_id,
+                key_control: key_control
+            },
             { _id: true, pseudo: true }
         );
 

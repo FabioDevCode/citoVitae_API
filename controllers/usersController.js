@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt/bcrypt');
 const jwt = require('jsonwebtoken');
+const randomstring = require("randomstring");
 const usersModel = require('../models/usersModel');
 const profilModel = require('../models/profilModel');
 require('dotenv').config();
@@ -13,7 +14,7 @@ const signup = async(req, res, next) => {
         const user = new usersModel({
             pseudo: pseudo,
             email: email,
-            password: hashedPwd,
+            password: hashedPwd
         });
 
         const save_user = await user.save();
@@ -42,7 +43,6 @@ const signup = async(req, res, next) => {
 const login = async(req, res, next) => {
     try {
         const { pseudo } = req.body;
-
         const user = await usersModel.findOne({pseudo});
 
         if(!user) {
@@ -51,8 +51,11 @@ const login = async(req, res, next) => {
             })
         }
 
-        console.log(user);
+        await user.updateOne({
+            key_control: randomstring.generate()
+        })
 
+        const user_updated = await usersModel.findOne({pseudo});
         const check_pwd = await bcrypt.compare(req.body.password, user.password);
 
         if(!check_pwd) {
@@ -66,7 +69,7 @@ const login = async(req, res, next) => {
             token: jwt.sign(
                 {
                     user_id: user._id,
-                    key_control: process.env.KEY_CONTROL
+                    key_control: user_updated.key_control
                 },
                 process.env.KEY_TK,
                 {
@@ -79,7 +82,6 @@ const login = async(req, res, next) => {
         res.status(500).json({err});
     }
 };
-
 
 
 module.exports = {
