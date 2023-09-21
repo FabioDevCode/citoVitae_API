@@ -6,7 +6,7 @@ const validations = require('../validations/profilValidations');
 
 
 // ROUTES
-router.post('/update', validations.update, profilCtrl.update);
+router.put('/update', validations.update, profilCtrl.update);
 
 
 module.exports = router;

@@ -4,13 +4,13 @@ const profilModel = require('../models/profilModel');
 
 const update = async(req, res, next) => {
     try {
-        const { uid, pseudo } = req.user;
+        const { uid } = req.user;
         const objToUpdate = {};
 
         for(const [key, value] of Object.entries(req.body)) {
             if(key == 'date_naissance' && value.length) {
                 objToUpdate[key] = dayjs(value);
-            } else {
+            } else if(value.length) {
                 objToUpdate[key] = value
             }
         }
