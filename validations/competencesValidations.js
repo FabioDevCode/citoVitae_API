@@ -1,16 +1,9 @@
 const validations_helpers = require('../helpers/validationsHelpers');
 
 
-const update = (req, res, next) => {
+const add_and_erase = (req, res, next) => {
     const keyArray = [
-        'nom',
-        'prenom',
-        'date_naissance',
-        'description',
-        'email',
-        'numero',
-        'localisation',
-        'titre'
+        'nom_competence',
     ];
 
     if(!validations_helpers.checKeyOnBody(keyArray, req.body)) {
@@ -23,6 +16,7 @@ const update = (req, res, next) => {
     next();
 };
 
+
 module.exports = {
-    update
+    add_and_erase
 }

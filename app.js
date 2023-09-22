@@ -10,6 +10,7 @@ const auth = require('./middlewares/authMid');
 // IMPORT ROUTES
 const users_routes = require('./routes/usersRoutes');
 const profil_routes = require('./routes/profilRoutes');
+const competences_routes = require('./routes/competencesRoutes');
 
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(helmet());
 // ACCESS API
 app.use('/api/user', users_routes);
 app.use('/api/profil', auth, profil_routes);
+app.use('/api/competence', auth, competences_routes);
 
 
 module.exports = app;
