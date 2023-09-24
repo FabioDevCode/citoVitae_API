@@ -11,6 +11,7 @@ const auth = require('./middlewares/authMid');
 const users_routes = require('./routes/usersRoutes');
 const profil_routes = require('./routes/profilRoutes');
 const competences_routes = require('./routes/competencesRoutes');
+const experiences_routes = require('./routes/experiencesRoutes');
 
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(helmet());
 app.use('/api/user', users_routes);
 app.use('/api/profil', auth, profil_routes);
 app.use('/api/competence', auth, competences_routes);
+app.use('/api/experience', auth, experiences_routes);
 
 
 module.exports = app;
