@@ -14,7 +14,7 @@ const competences_routes = require('./routes/competencesRoutes');
 const experiences_routes = require('./routes/experiencesRoutes');
 const diplomes_routes = require('./routes/diplomesRoutes');
 const projets_routes = require('./routes/projetsRoutes');
-
+const links_routes = require('./routes/linksRoutes');
 
 
 const app = express();
@@ -31,6 +31,7 @@ app.use('/api/competence', auth, competences_routes);
 app.use('/api/experience', auth, experiences_routes);
 app.use('/api/diplome', auth, diplomes_routes);
 app.use('/api/projet', auth, projets_routes);
+app.use('/api/link', auth, links_routes);
 
 
 module.exports = app;
