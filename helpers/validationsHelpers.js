@@ -16,8 +16,17 @@ function checRequiredKeyOnBody(keyArray, body) {
     return true;
 };
 
+function UrlValidator(url) {
+    const domainUrl = new RegExp('^((http|https)://)[-a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)$', 'g');
+    if(!domainUrl.test(url)) {
+        return false;
+    }
+    return true;
+};
+
 
 module.exports = {
     checKeyOnBody,
-    checRequiredKeyOnBody
+    checRequiredKeyOnBody,
+    UrlValidator
 }
