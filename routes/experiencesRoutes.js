@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const experiencesCtrl = require('../controllers/experiencesController');
 const validations = require('../validations/experiencesValidations');
 

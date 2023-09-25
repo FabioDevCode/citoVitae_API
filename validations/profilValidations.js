@@ -1,4 +1,4 @@
-const validations_helpers = require('../helpers/validationsHelpers');
+const { checKeyOnBody } = require('../helpers/validationsHelpers');
 
 
 const update = (req, res, next) => {
@@ -13,7 +13,7 @@ const update = (req, res, next) => {
         'titre'
     ];
 
-    if(!validations_helpers.checKeyOnBody(keyArray, req.body)) {
+    if(!checKeyOnBody(keyArray, req.body)) {
         return res.status(400).json({
             error: 'VALIDATIONS',
             msg: 'Les données envoyées ne sont pas correctes.'

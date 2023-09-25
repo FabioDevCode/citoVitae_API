@@ -1,5 +1,5 @@
 const EmailValidator = require('email-validator');
-const validations_helpers = require('../helpers/validationsHelpers');
+const { checRequiredKeyOnBody, checKeyOnBody } = require('../helpers/validationsHelpers');
 
 
 const signup = (req, res, next) => {
@@ -10,14 +10,14 @@ const signup = (req, res, next) => {
         'password_bis'
     ];
 
-    if(!validations_helpers.checKeyOnBody(keyArray, req.body)) {
+    if(!checKeyOnBody(keyArray, req.body)) {
         return res.status(400).json({
             error: 'VALIDATIONS',
             msg: 'Les données envoyées ne sont pas correctes.'
         });
     }
 
-    const key = validations_helpers.checRequiredKeyOnBody(keyArray, req.body);
+    const key = checRequiredKeyOnBody(keyArray, req.body);
 
     if(key != true) {
         return res.status(400).json({
